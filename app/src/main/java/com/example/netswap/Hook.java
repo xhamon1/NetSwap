@@ -1,4 +1,4 @@
-package com.example.netspoof;
+package com.example.netswap;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
@@ -21,7 +21,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * spoof; do not scope it to the System Framework.
  *
  * Each distinct hook call is written once to the LSPosed log (Logs > Modules,
- * search for "NetSpoof") so you can see which checks the app actually makes.
+ * search for "NetSwap") so you can see which checks the app actually makes.
  */
 public class Hook implements IXposedHookLoadPackage {
 
@@ -29,7 +29,7 @@ public class Hook implements IXposedHookLoadPackage {
 
     // Logs each distinct message only once, because apps poll these methods constantly.
     private static void log(String msg) {
-        if (SEEN.add(msg)) XposedBridge.log("NetSpoof: " + msg);
+        if (SEEN.add(msg)) XposedBridge.log("NetSwap: " + msg);
     }
 
     private static XC_MethodReplacement constant(String name, Object value) {

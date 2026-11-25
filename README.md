@@ -1,4 +1,4 @@
-# NetSpoof
+# NetSwap
 
 LSPosed module that makes an app see Wi-Fi as mobile data (cellular and metered).
 
@@ -6,12 +6,12 @@ LSPosed module that makes an app see Wi-Fi as mobile data (cellular and metered)
 
 1. Create a new GitHub repository and upload everything in this folder, including the hidden `.github` folder.
 2. Open the **Actions** tab and wait for the **Build APK** run to finish. You can also start it with **Run workflow**.
-3. Open the finished run and download the **netspoof-apk** artifact. Unzip it to get `app-debug.apk`.
+3. Open the finished run and download the **netswap-apk** artifact. Unzip it to get `app-debug.apk`.
 
 ## Use
 
 1. Install `app-debug.apk` on a rooted device with LSPosed.
-2. In LSPosed, open **Modules**, enable **NetSpoof**, and select **only** the target app in its scope.
+2. In LSPosed, open **Modules**, enable **NetSwap**, and select **only** the target app in its scope.
 3. Force stop the target app and open it again while connected to Wi-Fi.
 
 ## What it hooks
