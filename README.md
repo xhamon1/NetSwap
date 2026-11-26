@@ -1,28 +1,16 @@
 # NetSwap
 
-LSPosed module that makes an app see Wi-Fi as mobile data (cellular and metered).
+LSPosed module that makes a selected app see Wi-Fi as mobile data.
 
-## Build (no PC needed)
+## Install
 
-1. Create a new GitHub repository and upload everything in this folder, including the hidden `.github` folder.
-2. Open the **Actions** tab and wait for the **Build APK** run to finish. You can also start it with **Run workflow**.
-3. Open the finished run and download the **netswap-apk** artifact. Unzip it to get `app-debug.apk`.
+1. Download the APK from the latest run in the Actions tab.
+2. Install it on a rooted device with LSPosed.
+3. Enable NetSwap in LSPosed and select only the target app.
+4. Force stop the app and open it again.
 
-## Use
+## Notes
 
-1. Install `app-debug.apk` on a rooted device with LSPosed.
-2. In LSPosed, open **Modules**, enable **NetSwap**, and select **only** the target app in its scope.
-3. Force stop the target app and open it again while connected to Wi-Fi.
-
-## What it hooks
-
-- `NetworkCapabilities.hasTransport()`: cellular is true, Wi-Fi is false
-- `NetworkCapabilities.hasCapability(NOT_METERED)`: false
-- `NetworkInfo.getType()` and `getTypeName()`: mobile
-- `ConnectivityManager.isActiveNetworkMetered()`: true
-
-## Limits
-
-- Only the app side is spoofed. The real connection is still Wi-Fi.
-- It does not help if the app checks the network interface name, `TelephonyManager`, or if the server checks the carrier IP or traffic stats.
-- The app may detect the spoof and ban the account. Use at your own risk.
+- Only the target app is affected. The real connection stays Wi-Fi.
+- Hook calls are written to the LSPosed log under the tag NetSwap.
+- Clear the app cache after you stop using the module.

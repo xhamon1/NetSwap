@@ -15,19 +15,10 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-/**
- * Makes every app in this module's LSPosed scope see the active network as
- * mobile data and metered. Only enable the module for the app you want to
- * spoof; do not scope it to the System Framework.
- *
- * Each distinct hook call is written once to the LSPosed log (Logs > Modules,
- * search for "NetSwap") so you can see which checks the app actually makes.
- */
 public class Hook implements IXposedHookLoadPackage {
 
     private static final Set<String> SEEN = Collections.synchronizedSet(new HashSet<>());
 
-    // Logs each distinct message only once, because apps poll these methods constantly.
     private static void log(String msg) {
         if (SEEN.add(msg)) XposedBridge.log("NetSwap: " + msg);
     }
@@ -46,7 +37,6 @@ public class Hook implements IXposedHookLoadPackage {
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lp) {
         log("loaded in " + lp.packageName);
 
-        // NetworkCapabilities: transport type and metered flag.
         XposedHelpers.findAndHookMethod(NetworkCapabilities.class, "hasTransport", int.class,
                 new XC_MethodHook() {
                     @Override
@@ -73,7 +63,6 @@ public class Hook implements IXposedHookLoadPackage {
                     }
                 });
 
-        // Legacy NetworkInfo API.
         XposedHelpers.findAndHookMethod(NetworkInfo.class, "getType",
                 constant("NetworkInfo.getType", ConnectivityManager.TYPE_MOBILE));
         XposedHelpers.findAndHookMethod(NetworkInfo.class, "getTypeName",
